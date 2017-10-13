@@ -74,8 +74,7 @@ public class FavorLayout extends RelativeLayout {
     private Interpolator accdec = new AccelerateDecelerateInterpolator();//先加速后减速
 
     // 在init中初始化
-    private Interpolator[] interpolators ;
-
+    private Interpolator[] interpolators;
 
 
     public FavorLayout(Context context) {
@@ -137,7 +136,7 @@ public class FavorLayout extends RelativeLayout {
     public void addFavor() {
         ImageView imageView = new ImageView(getContext());
         // 随机选一个
-        imageView.setImageDrawable(loves[random.nextInt(5)]);
+        imageView.setImageDrawable(loves[random.nextInt(loves.length)]);
         // 设置底部 水平居中
         imageView.setLayoutParams(lp);
 
@@ -151,10 +150,11 @@ public class FavorLayout extends RelativeLayout {
 
     /**
      * 设置动画
+     *
      * @param target
      * @return
      */
-    private Animator getAnimator(View target){
+    private Animator getAnimator(View target) {
         AnimatorSet set = getEnterAnimtor(target);
 
         ValueAnimator bezierValueAnimator = getBezierValueAnimator(target);
@@ -205,6 +205,7 @@ public class FavorLayout extends RelativeLayout {
 
     /**
      * 获取贝塞尔曲线动画
+     *
      * @param target
      * @return
      */
@@ -221,18 +222,41 @@ public class FavorLayout extends RelativeLayout {
         return animator;
     }
 
+    /**
+     * 设置item的大小
+     *
+     * @param iWidth
+     * @param iHeight
+     */
+    public void setFavorItemSize(int iWidth, int iHeight) {
+        this.iWidth = iWidth;
+        this.iHeight = iHeight;
+    }
+
+    /**
+     * 设置点赞效果集合
+     *
+     * @param items
+     */
+    public void setFavorItem(Drawable[] items) {
+        this.loves = items;
+    }
+
     private class AnimEndListener extends AnimatorListenerAdapter {
         private View target;
 
         public AnimEndListener(View target) {
             this.target = target;
         }
+
         @Override
         public void onAnimationEnd(Animator animation) {
             super.onAnimationEnd(animation);
             //因为不停的add 导致子view数量只增不减,所以在view动画结束后remove掉
             removeView((target));
-            Log.v(TAG, "removeView后子view数:"+getChildCount());
+            Log.v(TAG, "removeView后子view数:" + getChildCount());
         }
     }
+
+
 }
