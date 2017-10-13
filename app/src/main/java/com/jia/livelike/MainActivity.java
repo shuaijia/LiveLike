@@ -9,23 +9,34 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.jia.jslivelike.FavorLayout;
+
 public class MainActivity extends AppCompatActivity {
+
+    private FavorLayout favor_layout;
+    private FloatingActionButton fab;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        favor_layout= (FavorLayout) findViewById(R.id.favor_layout);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // 点赞
+                favor_layout.addFavor();
+
             }
         });
+
+
     }
 
     @Override
